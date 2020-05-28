@@ -1,0 +1,76 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "board = np.zeros((6,7), dtype=int)\n",
+    "def add_chip(col, player, board):\n",
+    "    rev_board = board[::-1]\n",
+    "    for row in rev_board[:, col]:\n",
+    "        if row == 0:\n",
+    "            rev_board[row][col] = player\n",
+    "            break\n",
+    "    return board"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": "array([[0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 1, 2, 0, 0, 0]])"
+     },
+     "metadata": {},
+     "execution_count": 29
+    }
+   ],
+   "source": [
+    "add_chip(3, 2, board)\n",
+    "add_chip(2, 1, board)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4-final"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python37464bitb555f12bd815495494232e1aca1d8135",
+   "display_name": "Python 3.7.4 64-bit"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
