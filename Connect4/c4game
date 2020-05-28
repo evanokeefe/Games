@@ -2,46 +2,108 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 104,
    "metadata": {},
    "outputs": [],
    "source": [
-    "import numpy as np"
+    "import numpy as np\n",
+    "import random"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 105,
    "metadata": {},
    "outputs": [],
    "source": [
-    "board = np.zeros((6,7), dtype=int)\n",
     "def add_chip(col, player, board):\n",
-    "    rev_board = board[::-1]\n",
-    "    for row in rev_board[:, col]:\n",
+    "    for idx, row in enumerate(board[:, col]):\n",
     "        if row == 0:\n",
-    "            rev_board[row][col] = player\n",
+    "            board[idx][col] = player\n",
     "            break\n",
     "    return board"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 106,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def valid_input(col, board):\n",
+    "    if not np.any(board[:, col]==0):\n",
+    "        return False\n",
+    "    else:\n",
+    "        return True"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def play_game(board):\n",
+    "    game_over = False\n",
+    "    player1 = random.choice((True, False))\n",
+    "    while not game_over:\n",
+    "        if count == 42:\n",
+    "            return 'Game Tied'\n",
+    "        if player1:\n",
+    "            player = 1\n",
+    "        else:\n",
+    "            player = 2\n",
+    "        \n",
+    "        print(f\"It is Player {player}'s turn to play\")\n",
+    "        inp = int(input('Which column would you like to play? (enter 0-6) '))\n",
+    "        \n",
+    "        if valid_input(inp, board):\n",
+    "            board = add_chip(inp, player, board)\n",
+    "            print(board[::-1])\n",
+    "            player1 = not player1\n",
+    "        else:\n",
+    "            print('This column is full try again')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 110,
    "metadata": {},
    "outputs": [
     {
-     "output_type": "execute_result",
-     "data": {
-      "text/plain": "array([[0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 0, 0, 0, 0, 0],\n       [0, 0, 1, 2, 0, 0, 0]])"
-     },
-     "metadata": {},
-     "execution_count": 29
+     "output_type": "stream",
+     "name": "stdout",
+     "text": "It is Player 2's turn to play\n[[0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 1's turn to play\n[[0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 2's turn to play\n[[0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 1's turn to play\n[[0 0 0 0 0 0 0]\n [0 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 2's turn to play\n[[0 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 1's turn to play\n[[1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]\n [1 0 0 0 0 0 0]\n [2 0 0 0 0 0 0]]\nIt is Player 2's turn to play\nThis column is full try again\nIt is Player 2's turn to play\nThis column is full try again\nIt is Player 2's turn to play\nThis column is full try again\nIt is Player 2's turn to play\nThis column is full try again\nIt is Player 2's turn to play\nThis column is full try again\nIt is Player 2's turn to play\n"
+    },
+    {
+     "output_type": "error",
+     "ename": "ValueError",
+     "evalue": "invalid literal for int() with base 10: ''",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-110-9f66a32923a3>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m     12\u001b[0m         \u001b[0mnum_game\u001b[0m \u001b[0;34m-=\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 14\u001b[0;31m \u001b[0mstart_game\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m<ipython-input-110-9f66a32923a3>\u001b[0m in \u001b[0;36mstart_game\u001b[0;34m()\u001b[0m\n\u001b[1;32m      9\u001b[0m         \u001b[0mstart\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0minput\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Would you like to start the game? (y/n) '\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlower\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstrip\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     10\u001b[0m         \u001b[0mboard\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnp\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mzeros\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m6\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m7\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdtype\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mint\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 11\u001b[0;31m         \u001b[0mplay_game\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mboard\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     12\u001b[0m         \u001b[0mnum_game\u001b[0m \u001b[0;34m-=\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m<ipython-input-107-b69be7849a43>\u001b[0m in \u001b[0;36mplay_game\u001b[0;34m(board)\u001b[0m\n\u001b[1;32m     12\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m         \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34mf\"It is Player {player}'s turn to play\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 14\u001b[0;31m         \u001b[0minp\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0minput\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Which column would you like to play? (enter 0-6) '\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     15\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     16\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0mvalid_input\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0minp\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mboard\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: invalid literal for int() with base 10: ''"
+     ]
     }
    ],
    "source": [
-    "add_chip(3, 2, board)\n",
-    "add_chip(2, 1, board)"
+    "def start_game():\n",
+    "    cpu = input('Would you like to play PvP or PvCPU? (enter p or cpu) ').lower().strip()\n",
+    "    tourn = input('Would you like to play a single game or tournament? (enter s or t) ').lower().strip()\n",
+    "    if tourn == 't':\n",
+    "        num_game = input('How many games would you like the tournament to be out of? ').lower().strip()\n",
+    "    else:\n",
+    "        num_game = 1\n",
+    "    while num_game > 0:\n",
+    "        start = input('Would you like to start the game? (y/n) ').lower().strip()\n",
+    "        board = np.zeros((6,7), dtype=int)\n",
+    "        play_game(board)\n",
+    "        num_game -= 1\n",
+    "\n",
+    "start_game()"
    ]
   },
   {
