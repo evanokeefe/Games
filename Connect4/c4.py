@@ -9,6 +9,7 @@ class Connect4:
         self.win_len = win_len
         self.p1_wins = 0
         self.p2_wins = 0
+        self.p1_turn = random.choice((True, False))
     
     def clear_board(self):
         self.board = np.zeros((self.rows,self.cols), dtype=int)
@@ -28,7 +29,7 @@ class Connect4:
         else:
             return True
 
-    def check_winner(self):
+    def check_winner(self, cpu=True):
         checks = []
         for row in range(self.rows):
             for i in range(self.cols-(self.win_len-1)):
@@ -48,7 +49,10 @@ class Connect4:
 
         p1_win = [1] * self.win_len
         p2_win = [2] * self.win_len
-        for item in checks: 
+        block = [1] * (self.win_len - 1)  
+        win_move = [2] * (self.win_len - 1)
+
+        for item in checks:
             if np.array_equal(item, p1_win):
                 self.winner = 'Player 1'
                 self.p1_wins += 1
@@ -57,13 +61,19 @@ class Connect4:
                 self.winner = 'Player 2'
                 self.p2_wins += 1
                 return True
+            if cpu:
+                if np.array_equiv(item, win_move):
+                    print('Winning Move')
+                elif np.array_equiv(item, block):
+                    print('Blocking Move')
+        if cpu:
+            print('Random Move')
         return False
 
     def play_game(self):
         game_over = False
-        player1 = random.choice((True, False))
         while not game_over:
-            if player1:
+            if self.p1_turn:
                 player = 1
             else:
                 player = 2
@@ -75,7 +85,7 @@ class Connect4:
                 self.board = self.add_chip(inp, player)
                 print(self.board[::-1])
                 print('\n')
-                player1 = not player1
+                self.p1_turn = not self.p1_turn
             else:
                 print('Not a valid move. Try again')
             game_over = self.check_winner() 
